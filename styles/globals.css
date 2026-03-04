@@ -1,0 +1,182 @@
+/* ── Poker Playground – Global Styles ───────────────────────────────── */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:          #0d1117;
+  --surface:     #161b22;
+  --surface2:    #21262d;
+  --border:      #30363d;
+  --text:        #e6edf3;
+  --text-muted:  #8b949e;
+  --green:       #2d6a4f;
+  --green-felt:  #1b4332;
+  --green-light: #40916c;
+  --red:         #c62828;
+  --red-light:   #ef5350;
+  --gold:        #f4c430;
+  --blue:        #388bfd;
+  --chip-bg:     #1f6feb;
+  --radius:      10px;
+  --radius-lg:   18px;
+  --shadow:      0 4px 24px rgba(0,0,0,.55);
+  --transition:  0.18s ease;
+}
+
+html, body { height: 100%; }
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  line-height: 1.5;
+}
+
+/* ── Utilities ─────────────────────────────────────── */
+.sr-only { position: absolute; width:1px; height:1px; overflow:hidden; clip:rect(0,0,0,0); }
+
+/* ── Scrollbar ─────────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+/* ── Buttons ───────────────────────────────────────── */
+button {
+  cursor: pointer;
+  border: none;
+  border-radius: var(--radius);
+  font-family: inherit;
+  font-size: .875rem;
+  font-weight: 600;
+  padding: .55rem 1.1rem;
+  transition: filter var(--transition), transform var(--transition);
+}
+button:hover { filter: brightness(1.15); }
+button:active { transform: scale(.96); }
+button:disabled { opacity: .4; cursor: not-allowed; filter: none; transform: none; }
+
+.btn-primary   { background: var(--green-light); color: #fff; }
+.btn-danger    { background: var(--red);          color: #fff; }
+.btn-gold      { background: var(--gold);          color: #111; }
+.btn-ghost     { background: var(--surface2);      color: var(--text); border: 1px solid var(--border); }
+.btn-blue      { background: var(--blue);          color: #fff; }
+.btn-sm { font-size:.75rem; padding: .35rem .7rem; }
+
+/* ── Inputs ────────────────────────────────────────── */
+input[type="text"], input[type="number"] {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--text);
+  font-family: inherit;
+  font-size: .9rem;
+  padding: .55rem .85rem;
+  outline: none;
+  transition: border-color var(--transition);
+  width: 100%;
+}
+input:focus { border-color: var(--blue); }
+
+label { font-size:.8rem; font-weight:600; color: var(--text-muted); margin-bottom:.25rem; display:block; }
+
+/* ── Card ──────────────────────────────────────────── */
+.card-wrap {
+  width: 52px; height: 74px;
+  border-radius: 6px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: .8rem;
+  font-weight: 700;
+  user-select: none;
+  box-shadow: 0 2px 6px rgba(0,0,0,.5);
+  position: relative;
+  flex-shrink: 0;
+}
+.card-face {
+  background: #fff;
+  color: #111;
+  flex-direction: column;
+  gap: 2px;
+}
+.card-face.red  { color: var(--red); }
+.card-face.black{ color: #111; }
+.card-back {
+  background: linear-gradient(135deg, #1a237e, #283593);
+  border: 2px solid rgba(255,255,255,.15);
+}
+.card-rank { font-size: 1rem; line-height:1; }
+.card-suit { font-size: 1.25rem; line-height:1; }
+
+/* ── Chip badge ─────────────────────────────────────── */
+.chip-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: .3rem;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: .2rem .6rem;
+  font-size: .78rem;
+  font-weight: 600;
+  color: var(--gold);
+}
+.chip-badge::before { content: '●'; font-size:.65rem; }
+
+/* ── Table felt (game view) ─────────────────────────── */
+.felt-table {
+  background: radial-gradient(ellipse at center, #2d6a4f 0%, #1b4332 60%, #0f2d1f 100%);
+  border: 6px solid #8B6914;
+  border-radius: 50%;
+  position: relative;
+  box-shadow: 0 0 60px rgba(0,0,0,.7), inset 0 0 40px rgba(0,0,0,.4);
+}
+
+/* ── Toast / notification ───────────────────────────── */
+.toast {
+  position: fixed;
+  bottom: 1.5rem; left: 50%;
+  transform: translateX(-50%);
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: .65rem 1.25rem;
+  font-size:.85rem;
+  color: var(--text);
+  box-shadow: var(--shadow);
+  z-index: 9999;
+  animation: fadeInUp .25s ease;
+}
+.toast.error { border-color: var(--red-light); color: var(--red-light); }
+
+@keyframes fadeInUp {
+  from { opacity:0; transform: translateX(-50%) translateY(12px); }
+  to   { opacity:1; transform: translateX(-50%) translateY(0); }
+}
+
+/* ── Winner banner ──────────────────────────────────── */
+@keyframes winnerPop {
+  0%   { opacity:0; transform: scale(.8); }
+  60%  { transform: scale(1.06); }
+  100% { opacity:1; transform: scale(1); }
+}
+.winner-banner {
+  animation: winnerPop .45s ease forwards;
+  background: linear-gradient(135deg, #b8860b, #f4c430, #b8860b);
+  color: #111;
+  font-weight: 700;
+  font-size: 1.1rem;
+  border-radius: var(--radius);
+  padding: .6rem 1.4rem;
+  text-align: center;
+  box-shadow: 0 0 20px rgba(244,196,48,.55);
+}
+
+/* ── Pulse animation for active player ──────────────── */
+@keyframes pulse {
+  0%,100% { box-shadow: 0 0 0 0 rgba(64,145,108,.7); }
+  50%      { box-shadow: 0 0 0 8px rgba(64,145,108,0); }
+}
+.active-seat { animation: pulse 1.4s ease infinite; }
