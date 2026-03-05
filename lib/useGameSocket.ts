@@ -16,6 +16,7 @@ interface UseGameSocketOptions {
     onUpdate: (gs: GameState) => void;
     onError?: (msg: string) => void;
     onPlayerJoined?: () => void;
+    onPlayerLeft?: () => void;
 }
 
 export function useGameSocket({
@@ -24,6 +25,7 @@ export function useGameSocket({
     onUpdate,
     onError,
     onPlayerJoined,
+    onPlayerLeft,
 }: UseGameSocketOptions) {
     const wsRef = useRef<WebSocket | null>(null);
     const reconnTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -42,6 +44,8 @@ export function useGameSocket({
                     onUpdate(msg.payload as GameState);
                 } else if (msg.action === 'PLAYER_JOINED') {
                     onPlayerJoined?.();
+                } else if (msg.action === 'PLAYER_LEFT') {
+                    onPlayerLeft?.();
                 } else if (msg.action === 'ERROR' && typeof msg.payload === 'string') {
                     onError?.(msg.payload);
                 }

@@ -102,6 +102,7 @@ export default function RoomPage() {
         onUpdate: (gs) => setGsLocal(gs),
         onError: (msg) => showToast(msg, true),
         onPlayerJoined: loadRoom,
+        onPlayerLeft: loadRoom,
     });
 
     // ── Actions ───────────────────────────────────────────────────────────────
