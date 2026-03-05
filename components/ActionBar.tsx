@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import type { GameState, WsAction } from '../lib/useGameSocket';
+import type { WsAction } from '../lib/useGameSocket';
+import type { GameState } from '../lib/api';
 
 interface ActionBarProps {
     gameState: GameState;
