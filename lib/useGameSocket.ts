@@ -1,7 +1,7 @@
 import { useEffect, useRef, useCallback } from 'react';
 import type { GameState } from './api';
 
-const WS_BASE = process.env.NEXT_PUBLIC_WS_URL ?? 'ws://localhost:8080';
+const WS_BASE = process.env.NEXT_PUBLIC_WS_URL ?? (process.env.NODE_ENV === 'production' ? 'wss://poker-server-production-eb34.up.railway.app' : 'ws://localhost:8080');
 
 export type WsAction = 'FOLD' | 'CHECK' | 'CALL' | 'RAISE' | 'BET' | 'ALL_IN';
 

@@ -1,4 +1,4 @@
-const BASE = process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:8080';
+const BASE = process.env.NEXT_PUBLIC_API_URL ?? (process.env.NODE_ENV === 'production' ? 'https://poker-server-production-eb34.up.railway.app' : 'http://localhost:8080');
 
 // ── Types ────────────────────────────────────────────────────────────────────
 
